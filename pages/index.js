@@ -1,7 +1,11 @@
-export default function Home() {
+import { Button } from '@material-ui/core';
+
+function Home() {
   return (
     <div>
-      <h1>Clone Youtube</h1>
+      <Button variant="outlined" color="primary"> Alo</Button>
     </div>
   );
 }
+
+export default Home;

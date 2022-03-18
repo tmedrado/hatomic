@@ -3,14 +3,16 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
+import { useRouter } from 'next/router';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 function Navbar() {
+  const router = useRouter();
   return (
     <AppBar position="static">
       <Toolbar>
         <RocketLaunchIcon />
-        <Typography variant="h5">
+        <Typography variant="h5" onClick={() => { router.push('/'); }}>
           Hatomic
         </Typography>
         <div />

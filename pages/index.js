@@ -1,12 +1,11 @@
 import { Button } from '@material-ui/core';
-import Layout from '../components/Layout';
+import { useRouter } from 'next/router';
 
 function Home() {
+  const router = useRouter();
   return (
     <div>
-      <Layout title="Hatomic App">
-        <Button variant="outlined" color="primary"> Alo</Button>
-      </Layout>
+      <Button onClick={() => router.push('/create')} variant="outlined" color="primary"> Criar um Hábito</Button>
     </div>
   );
 }

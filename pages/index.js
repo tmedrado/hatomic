@@ -6,6 +6,7 @@ function Home() {
   return (
     <div>
       <Button onClick={() => router.push('/create')} variant="outlined" color="primary"> Criar um Hábito</Button>
+      <Button onClick={() => router.push('/create')} variant="outlined" color="primary"> Criar um Hábito</Button>
     </div>
   );
 }

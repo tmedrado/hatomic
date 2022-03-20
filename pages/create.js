@@ -1,14 +1,20 @@
+/* eslint-disable max-len */
 import {
-  TextField, Grid, Button, Select, MenuItem, FormControl, InputLabel,
+  TextField, Grid, Button, Radio, FormControlLabel, Typography, RadioGroup,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import SendIcon from '@mui/icons-material/Send';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 function HabitForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ name: '', frequency: '' });
+  const [formData, setFormData] = useState({ name: '', frequency: '', times: '1' });
+
+  const REPEAT_TIME_OPTIONS = ['daily', 'weekly', 'monthly'];
+  const SCHEDULE_OPTIONS = ['anytime', 'morning', 'afternoon', 'night time'];
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -19,25 +25,59 @@ function HabitForm() {
       container
       justifyContent="center"
       direction="column"
-      spacing={1}
       padding={4}
     >
-      <TextField required name="name" onChange={handleChange} label="Habit Name" color="primary" variant="standard" />
-      <FormControl required>
-        <InputLabel>Frequency</InputLabel>
-        <Select
-          value={formData.frequency}
-          label="Frequency"
-          name="frequency"
-          onChange={handleChange}
+      <Typography variant="h3"> new habit</Typography>
+      <br />
+
+      <TextField name="title" onChange={handleChange} label="title" color="primary" variant="outlined" />
+
+      <Grid container direction="row" alignItems="center" mt={2}>
+        <RepeatIcon fontSize="small" />
+        <Typography variant="h6"> repeat time</Typography>
+      </Grid>
+      <RadioGroup
+        row
+        name="frequency"
+        onChange={handleChange}
+      >
+        {REPEAT_TIME_OPTIONS.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)}
+
+      </RadioGroup>
+      {['weekly', 'monthly'].includes(formData.frequency) && (
+        <>
+          <Typography variant="h7">
+            repeat
+            {' '}
+            {formData.times === '1' ? 'once ' : `${formData.times} days`}
+            {' '}
+            a
+            {' '}
+            {formData.frequency === 'weekly' ? 'week' : 'month'}
+
+          </Typography>
+          <RadioGroup
+            row
+            name="times"
+            onChange={handleChange}
+          >
+            {[1, 2, 3, 4, 5, 6].map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)}
+          </RadioGroup>
+        </>
+
+      )}
+
+      <Grid container direction="row" alignItems="center" mt={2}>
+        <ScheduleIcon fontSize="small" />
+        <Typography variant="h6"> schedule</Typography>
+        <RadioGroup
+          row
         >
-          <MenuItem value={1}>Every Day</MenuItem>
-          <MenuItem value={2}>Every Other Day</MenuItem>
-          <MenuItem value={7}>Every Week</MenuItem>
-          <MenuItem value={30}>Every Month</MenuItem>
-        </Select>
-      </FormControl>
-      <Button style={{ marginTop: 5 }} variant="contained" endIcon={<SendIcon />} onClick={() => router.push('/')}>Criar Hábito</Button>
+          {SCHEDULE_OPTIONS.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)}
+        </RadioGroup>
+      </Grid>
+      <br />
+      <Button style={{ marginTop: 5 }} variant="contained" endIcon={<SendIcon />} onClick={() => router.push('/')}>Create Habit</Button>
     </Grid>
 
   );

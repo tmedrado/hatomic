@@ -12,10 +12,9 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=Montserrat:ital,wght@1,300&display=swap"
           />
           {this.props.emotionStyleTags}
         </Head>

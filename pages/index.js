@@ -1,13 +1,14 @@
-import { Button } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 
 function Home() {
   const router = useRouter();
   return (
-    <div>
-      <Button onClick={() => router.push('/create')} variant="outlined" color="primary"> Criar um Hábito</Button>
-      <Button onClick={() => router.push('/create')} variant="outlined" color="primary"> Criar um Hábito</Button>
-    </div>
+    <Container>
+      <Typography mx={3} variant="h2" component="div">
+        habit  +
+      </Typography>
+    </Container>
   );
 }
 

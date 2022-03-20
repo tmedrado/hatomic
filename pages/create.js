@@ -2,7 +2,6 @@
 import {
   TextField, Grid, Button, Radio, FormControlLabel, Typography, RadioGroup,
 } from '@mui/material';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import SendIcon from '@mui/icons-material/Send';
@@ -10,7 +9,6 @@ import RepeatIcon from '@mui/icons-material/Repeat';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 
 function HabitForm() {
-  const router = useRouter();
   const [formData, setFormData] = useState({ title: '', frequency: '', times: '1' });
 
   const REPEAT_TIME_OPTIONS = ['daily', 'weekly', 'monthly'];

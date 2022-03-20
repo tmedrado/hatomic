@@ -11,7 +11,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 
 function HabitForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ name: '', frequency: '', times: '1' });
+  const [formData, setFormData] = useState({ title: '', frequency: '', times: '1' });
 
   const REPEAT_TIME_OPTIONS = ['daily', 'weekly', 'monthly'];
   const SCHEDULE_OPTIONS = ['anytime', 'morning', 'afternoon', 'night time'];
@@ -70,14 +70,14 @@ function HabitForm() {
       <Grid container direction="row" alignItems="center" mt={2}>
         <ScheduleIcon fontSize="small" />
         <Typography variant="h6"> schedule</Typography>
-        <RadioGroup
-          row
-        >
-          {SCHEDULE_OPTIONS.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)}
-        </RadioGroup>
       </Grid>
+      <RadioGroup
+        row
+      >
+        {SCHEDULE_OPTIONS.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)}
+      </RadioGroup>
       <br />
-      <Button style={{ marginTop: 5 }} variant="contained" endIcon={<SendIcon />} onClick={() => router.push('/')}>Create Habit</Button>
+      <Button style={{ marginTop: 5 }} variant="contained" endIcon={<SendIcon />} onClick={() => console.log({ formData })}>Create Habit</Button>
     </Grid>
 
   );

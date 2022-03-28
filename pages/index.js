@@ -1,15 +1,25 @@
-import { IconButton, Container, Typography } from '@material-ui/core';
+import {
+  IconButton,
+  Container,
+  Typography,
+  CircularProgress,
+} from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import HabitCard from '../components/HabitCard';
+import HabitCalendar from '../components/Calendar';
 
 function Home() {
   const [habits, setHabits] = useState([]);
+  const [daysDone, setDaysDone] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
-    setHabits([{ title: 'Jogging', frequency: 'daily', times: '1' }, { title: 'Meditate', frequency: 'weekly', times: '3' }]);
+    setHabits([
+      { title: 'Jogging', frequency: 'daily', times: '1' },
+      { title: 'Meditate', frequency: 'weekly', times: '3' },
+    ]);
   }, []);
 
   return (
@@ -20,7 +30,16 @@ function Home() {
           <AddIcon fontSize="large" />
         </IconButton>
       </Typography>
-      {habits.map((habit) => <HabitCard habit={habit} />)}
+      {habits.map((habit) => (
+        <HabitCard key={habit.title} habit={habit} />
+      ))}
+      <br />
+      <CircularProgress
+        variant="determinate"
+        value={((daysDone % 7) / 7) * 100}
+        onClick={() => setDaysDone(daysDone + 1)}
+      />
+      <HabitCalendar />
     </Container>
   );
 }

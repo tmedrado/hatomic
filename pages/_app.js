@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Head from 'next/head'
+import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import { CacheProvider } from '@emotion/react'
 import theme from '../styles/theme'
@@ -8,8 +9,12 @@ import Layout from '../components/Layout'
 
 const clientSideEmotionCache = createEmotionCache()
 
-const MyApp = (props) => {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+const App = (props) => {
+  const {
+    Component,
+    emotionCache = clientSideEmotionCache,
+    pageProps: { session, ...pageProps },
+  } = props
 
   return (
     <CacheProvider value={emotionCache}>
@@ -18,11 +23,13 @@ const MyApp = (props) => {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SessionProvider session={session}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SessionProvider>
       </ThemeProvider>
     </CacheProvider>
   )
 }
-export default MyApp
+export default App

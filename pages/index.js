@@ -1,13 +1,15 @@
-import { IconButton, Container, Typography, CircularProgress } from '@material-ui/core'
+import { IconButton, Container, Typography } from '@material-ui/core'
+
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
-import HabitCalendar from '../components/Calendar'
 import HabitCard from '../components/HabitCard'
+import Sidebar from '../components/Sidebar'
 
 const Home = () => {
   const [habits, setHabits] = useState([])
-  const [daysDone, setDaysDone] = useState(0)
+  const [sideOpen, setSideOpen] = useState(false)
+  const [editingHabit, setEditingHabit] = useState({})
   const router = useRouter()
 
   useEffect(() => {
@@ -25,16 +27,16 @@ const Home = () => {
           <AddIcon fontSize="large" />
         </IconButton>
       </Typography>
+      <Sidebar
+        open={sideOpen}
+        setSideOpen={setSideOpen}
+        editingHabit={editingHabit}
+        setEditingHabit={setEditingHabit}
+      />
       {habits.map((habit) => (
-        <HabitCard key={habit.title} habit={habit} />
+        <HabitCard key={habit.title} habit={habit} setSideOpen={setSideOpen} setEditingHabit={setEditingHabit} />
       ))}
       <br />
-      <CircularProgress
-        variant="determinate"
-        value={((daysDone % 7) / 7) * 100}
-        onClick={() => setDaysDone(daysDone + 1)}
-      />
-      <HabitCalendar />
     </Container>
   )
 }

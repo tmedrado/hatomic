@@ -1,23 +1,24 @@
-import {
-  CardActionArea,
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-} from '@mui/material';
-import RepeatIcon from '@mui/icons-material/Repeat';
+import { CardActionArea, Card, CardContent, Typography, Grid } from '@mui/material'
+import RepeatIcon from '@mui/icons-material/Repeat'
 
-import { currentMonth } from './utils/moment';
+import { currentMonth } from './utils/moment'
 
-const HabitCard = ({ habit: { title, frequency, times } }) => {
+const HabitCard = ({ habit, setSideOpen, setEditingHabit }) => {
   const TIME_MAP = {
     daily: 'day',
     weekly: 'week',
     monthly: 'month',
-  };
+  }
+  const { title, frequency, times } = habit
+
   return (
     <Card raised sx={{ maxWidth: 345, marginTop: 3 }}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => {
+          setSideOpen(true)
+          setEditingHabit(habit)
+        }}
+      >
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {title}
@@ -27,8 +28,7 @@ const HabitCard = ({ habit: { title, frequency, times } }) => {
             <Typography>
               {' '}
               at least
-              {times === '1' ? 'once' : `${times} times`} a{' '}
-              {TIME_MAP[frequency]}
+              {times === '1' ? 'once' : `${times} times`} a {TIME_MAP[frequency]}
             </Typography>
           </Grid>
           <Typography variant="body2" color="text.secondary">
@@ -37,6 +37,6 @@ const HabitCard = ({ habit: { title, frequency, times } }) => {
         </CardContent>
       </CardActionArea>
     </Card>
-  );
-};
-export default HabitCard;
+  )
+}
+export default HabitCard

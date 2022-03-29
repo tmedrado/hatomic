@@ -1,15 +1,15 @@
-import * as React from 'react';
-import Head from 'next/head';
-import { ThemeProvider, CssBaseline } from '@material-ui/core';
-import { CacheProvider } from '@emotion/react';
-import theme from '../styles/theme';
-import createEmotionCache from '../createEmotionCache';
-import Layout from '../components/Layout';
+import * as React from 'react'
+import Head from 'next/head'
+import { ThemeProvider, CssBaseline } from '@material-ui/core'
+import { CacheProvider } from '@emotion/react'
+import theme from '../styles/theme'
+import createEmotionCache from '../createEmotionCache'
+import Layout from '../components/Layout'
 
-const clientSideEmotionCache = createEmotionCache();
+const clientSideEmotionCache = createEmotionCache()
 
-export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+const MyApp = (props) => {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   return (
     <CacheProvider value={emotionCache}>
@@ -23,5 +23,6 @@ export default function MyApp(props) {
         </Layout>
       </ThemeProvider>
     </CacheProvider>
-  );
+  )
 }
+export default MyApp

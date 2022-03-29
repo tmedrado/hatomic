@@ -32,6 +32,7 @@ const Home = ({ data }) => {
         <HabitCard key={habit.title} habit={habit} setSideOpen={setSideOpen} setEditingHabit={setEditingHabit} />
       ))}
       <br />
+      <button type="submit" onClick={() => setHabits({})} />
     </Container>
   )
 }

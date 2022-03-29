@@ -1,9 +1,21 @@
+import { getSession } from 'next-auth/react'
 import { prisma } from '../../../lib/prisma'
 
 export default async function (req, res) {
   const {
+    user: { email },
+  } = await getSession({ req })
+
+  const user = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+  })
+
+  const {
     formData: { title, frequency, active, schedule, times },
   } = req.body
+
   await prisma.habit.create({
     data: {
       title,
@@ -11,6 +23,7 @@ export default async function (req, res) {
       active,
       times: Number(times),
       schedule,
+      userId: user.id,
     },
   })
 

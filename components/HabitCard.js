@@ -39,4 +39,5 @@ const HabitCard = ({ habit, setSideOpen, setEditingHabit }) => {
     </Card>
   )
 }
+
 export default HabitCard

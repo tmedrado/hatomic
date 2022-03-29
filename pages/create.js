@@ -11,6 +11,7 @@ const HabitForm = () => {
     title: '',
     frequency: '',
     times: '1',
+    active: true,
   })
 
   const REPEAT_TIME_OPTIONS = ['daily', 'weekly', 'monthly']
@@ -18,6 +19,18 @@ const HabitForm = () => {
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
+  }
+
+  const handleCreateHabit = (e) => {
+    e.preventDefault()
+
+    fetch('http://localhost:3000/api/habits/create', {
+      method: 'POST',
+      body: JSON.stringify({ formData }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
   }
 
   return (
@@ -60,12 +73,7 @@ const HabitForm = () => {
         ))}
       </RadioGroup>
       <br />
-      <Button
-        style={{ marginTop: 5 }}
-        variant="contained"
-        endIcon={<SendIcon />}
-        onClick={() => console.log({ formData })}
-      >
+      <Button style={{ marginTop: 5 }} variant="contained" endIcon={<SendIcon />} onClick={handleCreateHabit}>
         Create Habit
       </Button>
     </Grid>

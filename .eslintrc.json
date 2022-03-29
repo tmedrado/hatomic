@@ -28,6 +28,7 @@
     "react/display-name": 1,
     "react/prop-types": "off",
     "no-return-assign": "off",
+    "func-names": "off",
     "react/no-unstable-nested-components": "off",
     "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": [

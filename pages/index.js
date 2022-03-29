@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import HabitCard from '../components/HabitCard'
 import Sidebar from '../components/Sidebar'
+import { prisma } from '../lib/prisma'
 
 const Home = () => {
   const [habits, setHabits] = useState([])
@@ -39,6 +40,22 @@ const Home = () => {
       <br />
     </Container>
   )
+}
+
+export const getServerSideProps = async () => {
+  const habits = await prisma.habit.findMany()
+  const data = habits.map((habit) => ({
+    id: habit.id,
+    frequency: habit.frequency,
+    times: habit.times,
+    active: habit.active,
+  }))
+
+  return {
+    props: {
+      data,
+    },
+  }
 }
 
 export default Home

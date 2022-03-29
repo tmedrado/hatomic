@@ -1,4 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import moment from 'moment';
+import moment from 'moment'
 
-export const currentMonth = moment().format('MMM');
+export const currentMonth = moment().format('MMM')

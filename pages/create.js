@@ -21,10 +21,10 @@ const HabitForm = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
   }
 
-  const handleCreateHabit = (e) => {
+  const handleCreateHabit = async (e) => {
     e.preventDefault()
 
-    fetch('hatomic-git-master-tmedrado.vercel.app/api/habits/create', {
+    await fetch('https://hatomic-git-master-tmedrado.vercel.app/api/habits/create', {
       method: 'POST',
       body: JSON.stringify({ formData }),
       headers: {

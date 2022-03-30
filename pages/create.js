@@ -27,9 +27,6 @@ const HabitForm = () => {
     fetch('http://hatomic-git-master-tmedrado.vercel.app/create', {
       method: 'POST',
       body: JSON.stringify({ formData }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     })
   }
 

@@ -6,7 +6,7 @@ import { currentMonth } from './utils/moment'
 const HabitCard = ({ habit, setSideOpen, setEditingHabit }) => {
   const TIME_MAP = {
     daily: 'day',
-    weekly: 'week',
+    weekly: 'weekk',
     monthly: 'month',
   }
   const { title, frequency, times } = habit

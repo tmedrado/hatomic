@@ -30,7 +30,7 @@ const HabitForm = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
+    }).catch((err) => console.log(err))
   }
 
   return (

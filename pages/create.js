@@ -24,13 +24,13 @@ const HabitForm = () => {
   const handleCreateHabit = (e) => {
     e.preventDefault()
 
-    fetch('https://hatomic-git-master-tmedrado.vercel.app/api/habits/create ', {
+    fetch('https://hatomic-git-master-tmedrado.vercel.app/api/habits/create', {
       method: 'POST',
       body: JSON.stringify({ formData }),
       headers: {
         'Content-Type': 'application/json',
       },
-    }).catch((err) => console.log(err))
+    })
   }
 
   return (

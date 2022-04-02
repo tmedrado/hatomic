@@ -5,6 +5,8 @@ import { useState } from 'react'
 import SendIcon from '@mui/icons-material/Send'
 import RepeatIcon from '@mui/icons-material/Repeat'
 import ScheduleIcon from '@mui/icons-material/Schedule'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const HabitForm = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +14,9 @@ const HabitForm = () => {
     frequency: '',
     times: '1',
     active: true,
+    schedule: '',
   })
+  const router = useRouter()
 
   const REPEAT_TIME_OPTIONS = ['daily', 'weekly', 'monthly']
   const SCHEDULE_OPTIONS = ['anytime', 'morning', 'afternoon', 'night time']
@@ -24,13 +28,7 @@ const HabitForm = () => {
   const handleCreateHabit = async (e) => {
     e.preventDefault()
 
-    await fetch('https://hatomic-git-master-tmedrado.vercel.app/api/habits/create', {
-      method: 'POST',
-      body: JSON.stringify({ formData }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    axios.post('/api/habits/create', { formData }).then(() => router.push('/'))
   }
 
   return (
@@ -67,7 +65,7 @@ const HabitForm = () => {
         <ScheduleIcon fontSize="small" />
         <Typography variant="h6"> schedule</Typography>
       </Grid>
-      <RadioGroup row>
+      <RadioGroup row name="schedule" onChange={handleChange}>
         {SCHEDULE_OPTIONS.map((item) => (
           <FormControlLabel key={item} value={item} control={<Radio />} label={item} />
         ))}

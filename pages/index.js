@@ -59,6 +59,7 @@ export const getServerSideProps = async (context) => {
     frequency: habit.frequency,
     times: habit.times,
     active: habit.active,
+    schedule: habit.schedule,
   }))
 
   return {

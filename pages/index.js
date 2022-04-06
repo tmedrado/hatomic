@@ -4,12 +4,14 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { getSession } from 'next-auth/react'
+import Image from 'next/image'
 import HabitCard from '../components/HabitCard'
 import Sidebar from '../components/Sidebar'
 import { prisma } from '../lib/prisma'
+import HatomicJogging from '../public/hatomic-run.svg'
 
 const Home = ({ data }) => {
-  const [habits, setHabits] = useState(data)
+  const [habits] = useState(data)
   const [sideOpen, setSideOpen] = useState(false)
   const [editingHabit, setEditingHabit] = useState({})
   const router = useRouter()
@@ -22,6 +24,7 @@ const Home = ({ data }) => {
           <AddIcon fontSize="large" />
         </IconButton>
       </Typography>
+      <Image src={HatomicJogging} width={300} height={400} />
       <Sidebar
         open={sideOpen}
         setSideOpen={setSideOpen}
@@ -32,7 +35,6 @@ const Home = ({ data }) => {
         <HabitCard key={habit.title} habit={habit} setSideOpen={setSideOpen} setEditingHabit={setEditingHabit} />
       ))}
       <br />
-      <button type="submit" onClick={() => setHabits({})} />
     </Container>
   )
 }

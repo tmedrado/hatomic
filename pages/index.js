@@ -1,9 +1,9 @@
-import { IconButton, Container, Typography } from '@material-ui/core'
+import { IconButton, Container, Typography, Grid } from '@material-ui/core'
 
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
-import { getSession } from 'next-auth/react'
+import { getSession, signIn } from 'next-auth/react'
 import Image from 'next/image'
 import HabitCard from '../components/HabitCard'
 import Sidebar from '../components/Sidebar'
@@ -18,23 +18,36 @@ const Home = ({ data }) => {
 
   return (
     <Container>
-      <Typography mx={3} variant="h2" component="div">
-        habit
-        <IconButton color="primary" onClick={() => router.push('/create')}>
-          <AddIcon fontSize="large" />
-        </IconButton>
-      </Typography>
-      <Image src={HatomicJogging} width={300} height={400} />
-      <Sidebar
-        open={sideOpen}
-        setSideOpen={setSideOpen}
-        editingHabit={editingHabit}
-        setEditingHabit={setEditingHabit}
-      />
-      {habits.map((habit) => (
-        <HabitCard key={habit.title} habit={habit} setSideOpen={setSideOpen} setEditingHabit={setEditingHabit} />
-      ))}
-      <br />
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={4} align="center">
+          <Image src={HatomicJogging} width={300} height={400} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Typography mx={3} variant="h2" component="div">
+            habit
+            <IconButton
+              color="primary"
+              onClick={async () =>
+                (await getSession())
+                  ? router.push('/create')
+                  : signIn('google', { callbackUrl: 'hatomic.vercel.app/create' })
+              }
+            >
+              <AddIcon fontSize="large" />
+            </IconButton>
+          </Typography>
+          <Sidebar
+            open={sideOpen}
+            setSideOpen={setSideOpen}
+            editingHabit={editingHabit}
+            setEditingHabit={setEditingHabit}
+          />
+          {habits.map((habit) => (
+            <HabitCard key={habit.title} habit={habit} setSideOpen={setSideOpen} setEditingHabit={setEditingHabit} />
+          ))}
+          <br />
+        </Grid>
+      </Grid>
     </Container>
   )
 }
@@ -67,6 +80,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       data,
+      session,
     },
   }
 }

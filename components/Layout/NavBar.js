@@ -24,7 +24,7 @@ const Navbar = () => {
             Sign Out
           </Button>
         ) : (
-          <Button color="secondary" onClick={() => signIn()}>
+          <Button color="secondary" onClick={() => signIn('google')}>
             Sign In
           </Button>
         )}

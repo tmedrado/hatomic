@@ -27,11 +27,7 @@ const Home = ({ data }) => {
             habit
             <IconButton
               color="primary"
-              onClick={async () =>
-                (await getSession())
-                  ? router.push('/create')
-                  : signIn('google', { callbackUrl: 'hatomic.vercel.app/create' })
-              }
+              onClick={async () => ((await getSession()) ? router.push('/create') : signIn('google'))}
             >
               <AddIcon fontSize="large" />
             </IconButton>

@@ -5,12 +5,17 @@ import ScheduleIcon from '@mui/icons-material/Schedule'
 
 import RepeatIcon from '@mui/icons-material/Repeat'
 import { Button } from '@material-ui/core'
+import axios from 'axios'
+import { useState } from 'react'
 import HabitCalendar from './Calendar'
 
 const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit }) => {
-  const handleClose = () => {
+  const [daysDone, setDaysDone] = useState([])
+
+  const handleClose = async () => {
     setSideOpen(!open)
     setEditingHabit({})
+    await axios.post('/api/habits/update', { editingHabit })
   }
   return (
     <div>
@@ -40,7 +45,7 @@ const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit }) => {
             <Typography variant="body2">
               <strong>days done</strong>
             </Typography>
-            <HabitCalendar />
+            <HabitCalendar daysDone={daysDone} setDaysDone={setDaysDone} />
           </Stack>
           <Stack alignItems="center" px={3}>
             <Typography variant="body2">

@@ -9,6 +9,7 @@ const HabitCard = ({ habit, setSideOpen, setEditingHabit }) => {
     weekly: 'weekk',
     monthly: 'month',
   }
+
   const { title, frequency, times } = habit
 
   return (

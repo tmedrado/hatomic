@@ -51,11 +51,12 @@ model User {
 model Habit {
   id String @id @default(uuid())
 
-  title     String  @default("")
+  title     String   @default("")
   frequency String
   active    Boolean
   times     Int
-  schedule  String  @default("anytime")
+  schedule  String   @default("anytime")
+  daysDone  String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())

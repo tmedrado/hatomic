@@ -19,7 +19,9 @@ const App = (props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
+        <title>Hatomic Habits</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

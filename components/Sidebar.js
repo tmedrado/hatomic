@@ -6,17 +6,22 @@ import ScheduleIcon from '@mui/icons-material/Schedule'
 import RepeatIcon from '@mui/icons-material/Repeat'
 import { Button } from '@material-ui/core'
 import axios from 'axios'
-import { useState } from 'react'
 import HabitCalendar from './Calendar'
 
-const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit }) => {
-  const [daysDone, setDaysDone] = useState([])
-
+const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }) => {
   const handleClose = async () => {
     setSideOpen(!open)
-    setEditingHabit({})
-    await axios.post('/api/habits/update', { editingHabit })
+
+    await axios.post('/api/habits/update', { editingHabit }).then(() =>
+      setHabits((habits) =>
+        habits.map((habit) => {
+          if (habit.id === editingHabit.id) return editingHabit
+          return habit
+        })
+      )
+    )
   }
+
   return (
     <div>
       <SwipeableDrawer anchor="right" open={open} onOpen={() => console.log('abriu')} onClose={handleClose}>
@@ -45,7 +50,7 @@ const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit }) => {
             <Typography variant="body2">
               <strong>days done</strong>
             </Typography>
-            <HabitCalendar daysDone={daysDone} setDaysDone={setDaysDone} />
+            <HabitCalendar editingHabit={editingHabit} setEditingHabit={setEditingHabit} />
           </Stack>
           <Stack alignItems="center" px={3}>
             <Typography variant="body2">

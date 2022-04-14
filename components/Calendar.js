@@ -3,19 +3,24 @@ import { Calendar } from 'react-calendar'
 import moment from 'moment'
 import 'react-calendar/dist/Calendar.css'
 
-const HabitCalendar = ({ daysDone, setDaysDone }) => {
+const HabitCalendar = ({ editingHabit, setEditingHabit }) => {
+  const { daysDone } = editingHabit
+
   const isDone = (day) => daysDone.map((date) => moment(date).format('l')).includes(moment(day).format('l'))
 
-  const handleDayClick = (day) =>
+  const handleClickDay = (day) =>
     isDone(day)
-      ? setDaysDone(daysDone.filter((item) => moment(item).format('l') !== moment(day).format('l')))
-      : setDaysDone([...daysDone, day])
+      ? setEditingHabit({
+          ...editingHabit,
+          daysDone: daysDone.filter((item) => moment(item).format('l') !== moment(day).format('l')),
+        })
+      : setEditingHabit({ ...editingHabit, daysDone: [...daysDone, day] })
 
   return (
     <Calendar
       maxDate={new Date()}
-      formatDay={(locale, date) => (isDone(date) ? <CheckCircleIcon /> : new Date(date).getDate())}
-      onClickDay={handleDayClick}
+      formatDay={(_locale, date) => (isDone(date) ? <CheckCircleIcon /> : new Date(date).getDate())}
+      onClickDay={handleClickDay}
     />
   )
 }

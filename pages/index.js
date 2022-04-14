@@ -11,7 +11,7 @@ import { prisma } from '../lib/prisma'
 import HatomicJogging from '../public/hatomic-run.svg'
 
 const Home = ({ data }) => {
-  const [habits] = useState(data)
+  const [habits, setHabits] = useState(data)
   const [sideOpen, setSideOpen] = useState(false)
   const [editingHabit, setEditingHabit] = useState({})
   const router = useRouter()
@@ -37,6 +37,7 @@ const Home = ({ data }) => {
             setSideOpen={setSideOpen}
             editingHabit={editingHabit}
             setEditingHabit={setEditingHabit}
+            setHabits={setHabits}
           />
           {habits.map((habit) => (
             <HabitCard key={habit.title} habit={habit} setSideOpen={setSideOpen} setEditingHabit={setEditingHabit} />
@@ -71,6 +72,7 @@ export const getServerSideProps = async (context) => {
     times: habit.times,
     active: habit.active,
     schedule: habit.schedule,
+    daysDone: habit.daysDone,
   }))
 
   return {

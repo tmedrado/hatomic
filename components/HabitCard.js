@@ -6,7 +6,7 @@ import { currentMonth } from './utils/moment'
 const HabitCard = ({ habit, setSideOpen, setEditingHabit }) => {
   const TIME_MAP = {
     daily: 'day',
-    weekly: 'weekk',
+    weekly: 'week',
     monthly: 'month',
   }
 
@@ -28,8 +28,7 @@ const HabitCard = ({ habit, setSideOpen, setEditingHabit }) => {
             <RepeatIcon fontSize="small" />
             <Typography>
               {' '}
-              at least
-              {times === '1' ? 'once' : `${times} times`} a {TIME_MAP[frequency]}
+              at least {times === '1' ? 'once' : `${times} times`} a {TIME_MAP[frequency]}
             </Typography>
           </Grid>
           <Typography variant="body2" color="text.secondary">

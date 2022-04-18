@@ -37,7 +37,7 @@ const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }
   return (
     <div>
       <SwipeableDrawer anchor="right" open={open} onOpen={() => console.log('abriu')} onClose={handleClose}>
-        <Stack direction="row" display="flex" justifyContent="space-between" sx={{ maxWidth: '100%' }}>
+        <Stack direction="row" display="flex" justifyContent="space-between">
           <Typography p={2} variant="h5">
             {editingHabit.title}
           </Typography>

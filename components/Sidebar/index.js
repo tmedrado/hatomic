@@ -9,7 +9,7 @@ import RepeatIcon from '@mui/icons-material/Repeat'
 import { Button } from '@material-ui/core'
 import axios from 'axios'
 import { useState } from 'react'
-import HabitCalendar from './Calendar'
+import HabitCalendar from '../Calendar'
 
 const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }) => {
   const [userWantToDelete, setUserWantToDelete] = useState(false)
@@ -29,6 +29,7 @@ const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }
 
   const handleDeleteHabit = async () => {
     setSideOpen(!open)
+    setUserWantToDelete(false)
     await axios
       .post('/api/habits/delete', { habitId: editingHabit.id })
       .then(() => setHabits((habits) => habits.filter((habit) => habit.id !== editingHabit.id)))

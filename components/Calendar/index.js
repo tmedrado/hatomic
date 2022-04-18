@@ -17,7 +17,6 @@ const HabitCalendar = ({ editingHabit, setEditingHabit }) => {
 
   return (
     <Calendar
-      className="react-cal"
       maxDate={new Date()}
       formatDay={(_locale, date) => (isDone(date) ? <CheckCircleIcon /> : new Date(date).getDate())}
       onClickDay={handleClickDay}

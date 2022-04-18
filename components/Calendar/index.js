@@ -1,7 +1,6 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { Calendar } from 'react-calendar'
 import moment from 'moment'
-import 'react-calendar/dist/Calendar.css'
 
 const HabitCalendar = ({ editingHabit, setEditingHabit }) => {
   const { daysDone } = editingHabit

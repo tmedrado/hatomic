@@ -2,16 +2,21 @@ import { Divider, Grid, IconButton, Stack, SwipeableDrawer, TextField, Typograph
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
 import PauseOutlinedIcon from '@mui/icons-material/PauseOutlined'
 import ScheduleIcon from '@mui/icons-material/Schedule'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import Alert from '@mui/material/Alert'
 
 import RepeatIcon from '@mui/icons-material/Repeat'
 import { Button } from '@material-ui/core'
 import axios from 'axios'
+import { useState } from 'react'
 import HabitCalendar from './Calendar'
 
 const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }) => {
+  const [userWantToDelete, setUserWantToDelete] = useState(false)
+
   const handleClose = async () => {
     setSideOpen(!open)
-
+    setUserWantToDelete(false)
     await axios.post('/api/habits/update', { editingHabit }).then(() =>
       setHabits((habits) =>
         habits.map((habit) => {
@@ -22,10 +27,17 @@ const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }
     )
   }
 
+  const handleDeleteHabit = async () => {
+    setSideOpen(!open)
+    await axios
+      .post('/api/habits/delete', { habitId: editingHabit.id })
+      .then(() => setHabits((habits) => habits.filter((habit) => habit.id !== editingHabit.id)))
+  }
+
   return (
     <div>
       <SwipeableDrawer anchor="right" open={open} onOpen={() => console.log('abriu')} onClose={handleClose}>
-        <Stack direction="row" display="flex" justifyContent="space-between">
+        <Stack direction="row" display="flex" justifyContent="space-between" sx={{ maxWidth: '100%' }}>
           <Typography p={2} variant="h5">
             {editingHabit.title}
           </Typography>
@@ -64,7 +76,7 @@ const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }
             >
               {editingHabit.active ? <RocketLaunchIcon /> : <PauseOutlinedIcon />}
             </IconButton>
-            <small>{`Habit is ${editingHabit.active ? 'active' : 'paused'}`}</small>
+            <small>{`habit is ${editingHabit.active ? 'active' : 'paused'}`}</small>
           </Stack>
           <Stack alignItems="center">
             <Grid container direction="row" alignItems="center" mt={2}>
@@ -84,7 +96,25 @@ const Sidebar = ({ open, setSideOpen, editingHabit, setEditingHabit, setHabits }
             </Grid>
             {editingHabit.schedule}
           </Stack>
+
+          {userWantToDelete ? (
+            <Alert
+              sx={{ maxWidth: '390px' }}
+              variant="outlined"
+              severity="warning"
+              action={
+                <Button variant="outlined" color="secondary" fullWidth size="small" onClick={handleDeleteHabit}>
+                  CONFIRM
+                </Button>
+              }
+            >
+              Do you want to delete your habit? <strong>This is irreversible!</strong>
+            </Alert>
+          ) : (
+            <DeleteForeverIcon onClick={() => setUserWantToDelete(true)} />
+          )}
         </Stack>
+
         <Divider />
         <Button variant="contained" color="primary" onClick={handleClose}>
           save

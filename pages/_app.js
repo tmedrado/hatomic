@@ -6,6 +6,7 @@ import { CacheProvider } from '@emotion/react'
 import theme from '../styles/theme'
 import createEmotionCache from '../createEmotionCache'
 import Layout from '../components/Layout'
+import '../styles/CalendarStyles.css'
 
 const clientSideEmotionCache = createEmotionCache()
 
